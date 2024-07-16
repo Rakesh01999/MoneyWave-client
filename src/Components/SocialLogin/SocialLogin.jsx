@@ -12,8 +12,8 @@ const SocialLogin = () => {
             .then(result => {
                 console.log(result.user)
                 const userInfo = {
+                    name: result.user?.displayName,
                     email: result.user?.email,
-                    name: result.user?.displayName
                 }
                 axiosPublic.post('/users', userInfo)
                 .then(res=> {
@@ -22,7 +22,7 @@ const SocialLogin = () => {
                 })
             });
     }
-    return (
+    return ( 
         <div className="p-8">
             <div className="divider">OR</div>
             <div>

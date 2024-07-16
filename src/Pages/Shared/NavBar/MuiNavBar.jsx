@@ -14,8 +14,9 @@ import {
     Hidden,
 } from "@mui/material";
 
-// import logo from "../../../../public/mm.png";
-import logo from "../../../../src/assets/mm.png";
+
+// import logo from "../../../../src/assets/mm.png";
+import logo from "../../../../src/assets/MoneyWave.png";
 import { useContext } from "react";
 import useAdmin from "../../../hooks/useAdmin";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -80,7 +81,8 @@ const MuiNavBar = () => {
                         </IconButton>
                     </Hidden>
                     <Link to="/" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
-                        <img src={logo} alt="Logo" style={{ height: 40, marginRight: 10 }} />
+                        {/* <img src={logo} alt="Logo" style={{ height: 40, marginRight: 10 }} /> */}
+                        <img src={logo} alt="Logo" style={{ height: 100, marginRight: 10 }} />
                         <Typography variant="h6" component="div" sx={{ color: "white" }}>
                             Money Wave
                         </Typography>
