@@ -9,7 +9,7 @@
 
 ## Overview
 
-it is an advanced matrimonial platform designed to bring people together and help them find their perfect match. Our goal is to create a secure and user-friendly environment where individuals can explore potential matches and build meaningful relationships leading to happy and successful marriages.
+it's an advanced matrimonial platform designed to bring people together and help them find their perfect match. Our goal is to create a secure and user-friendly environment where individuals can explore potential matches and build meaningful relationships leading to happy and successful marriages.
 
 ## Features
 
