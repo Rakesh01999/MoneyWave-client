@@ -15,8 +15,7 @@ it's an advanced matrimonial platform designed to bring people together and help
 
 1. **User-Friendly Interface**: Our platform is designed with ease of use in mind, ensuring that users can navigate effortlessly through the site.
    
-2. **Advanced Search Filters**: Users can filter potential matches based on various criteria such as age, location, religion, and more to find the most compatible matches.
-   
+ 
 3. **Profile Verification**: Ensuring the authenticity of users through a robust profile verification process to maintain a secure environment.
    
 4. **Privacy Controls**: Users have full control over their profiles, including the ability to hide personal information and control who can view their details.
