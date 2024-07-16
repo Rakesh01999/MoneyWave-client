@@ -18,9 +18,9 @@ it's an advanced matrimonial platform designed to bring people together and help
  
 2. **Profile Verification**: Ensuring the authenticity of users through a robust profile verification process to maintain a secure environment.
    
-4. **Privacy Controls**: Users have full control over their profiles, including the ability to hide personal information and control who can view their details.
+3. **Privacy Controls**: Users have full control over their profiles, including the ability to hide personal information and control who can view their details.
    
-5. **Biodata Statistics**: Detailed statistics for admin to monitor the number of male, female, and premium users, as well as the total biodata count.
+4. **Biodata Statistics**: Detailed statistics for admin to monitor the number of male, female, and premium users, as well as the total biodata count.
    
 6. **Revenue Tracking**: Admin can track total revenue generated from biodata contact request payments directly from the dashboard.
    
