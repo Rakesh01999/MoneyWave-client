@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import SectionTitle from '../../../Components/SectionTitle/SectionTitle';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import BiodataCard from '../../../Components/BiodataCard/BiodataCard';
-import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { Select, MenuItem, FormControl, InputLabel, Button } from '@mui/material';
 import PremiumProfileCard from '../../../Components/PremiumProfileCard/PremiumProfileCard';
+import 'animate.css';
 
 const PremiumMemberProfile = () => {
     const axiosSecure = useAxiosSecure();
     const [premiumRequest, setPremiumRequest] = useState([]);
     const [sortOrder, setSortOrder] = useState('ascending');
+    const [showAll, setShowAll] = useState(false);
 
     useEffect(() => {
         const fetchPremiumRequests = async () => {
@@ -29,25 +30,34 @@ const PremiumMemberProfile = () => {
     // Sort users based on age and selected order
     const sortedPremiumUsers = premiumUsers.sort((a, b) => {
         if (sortOrder === 'ascending') {
-    //         return a.biodata.Age - b.biodata.Age;
             return a.Age - b.Age;
         } else {
-    //         return b.biodata.Age - a.biodata.Age;
             return b.Age - a.Age;
         }
-    }).slice(0, 6);
+    });
+
+    const displayedUsers = showAll ? sortedPremiumUsers : sortedPremiumUsers.slice(0, 6);
 
     const handleSortOrderChange = (event) => {
         setSortOrder(event.target.value);
     };
 
+    const handleShowAll = () => {
+        setShowAll(!showAll);
+    };
+
     return (
         <div>
-            <SectionTitle
-                subHeading={"Find Here"}
-                heading={"Premium Member Profile"}>
-            </SectionTitle>
+            <h1 class="animate__animated animate__zoomIn">
+                <SectionTitle
+                    subHeading={"Find Here"}
+                    heading={"Premium Member Profile"}>
+                </SectionTitle>
+            </h1>
             <div className='flex items-center justify-center'>
+            {/* <div data-aos="zoom-out-down"> */}
+            <div data-aos="zoom-out-right">
+
                 <FormControl variant="outlined" className="w-48 mb-4">
                     <InputLabel>Sort by Age</InputLabel>
                     <Select
@@ -60,15 +70,16 @@ const PremiumMemberProfile = () => {
                     </Select>
                 </FormControl>
             </div>
+            </div>
             <div className='px-4 py-8 bg-opacity-10 rounded-3xl flex flex-col items-center gap-6 mb-10'>
                 <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
-                    {/* {sortedPremiumUsers.map((profile, index) => ( */}
-                    {premiumUsers.map((profile, index) => (
-                        // <BiodataCard key={index} biodata={profile.biodata} />
-                        // <BiodataCard key={index} biodata={profile} />
+                    {displayedUsers.map((profile, index) => (
                         <PremiumProfileCard key={index} biodata={profile} />
                     ))}
                 </div>
+                <Button variant="contained" color="primary" onClick={handleShowAll}>
+                    {showAll ? "Show Less" : "Show All"}
+                </Button>
             </div>
         </div >
     );

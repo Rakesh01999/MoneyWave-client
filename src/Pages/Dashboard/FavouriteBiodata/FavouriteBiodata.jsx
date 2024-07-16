@@ -64,44 +64,48 @@ const FavouriteBiodata = () => {
     }
 
     return (
-       
+
         <Box className="p-4">
-            <Typography variant="h4" className="text-xl mb-4">
-                Total Favourite Biodata: {filteredFavBio.length}
-            </Typography>
+            <div data-aos="zoom-in-right">
+                <Typography variant="h4" className="text-xl mb-4">
+                    Total Favourite Biodata: {filteredFavBio.length}
+                </Typography>
+            </div>
             {/* <TableContainer component={Paper} className="shadow-lg"> */}
-            <TableContainer className="shadow-lg">
-                <Table>
-                    <TableHead>
-                        <TableRow className="bg-gray-200">
-                            <TableCell>Sl No</TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Biodata Id</TableCell>
-                            <TableCell>Permanent Address</TableCell>
-                            <TableCell>Occupation</TableCell>
-                            <TableCell>Operation(Delete)</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {filteredFavBio.map((favBio, index) => (
-                            <TableRow key={favBio._id}>
-                                <TableCell>{index + 1}</TableCell>
-                                <TableCell>{favBio.name}</TableCell>
-                                <TableCell>{favBio.BiodataId}</TableCell>
-                                <TableCell>{favBio.PermanentDivision}</TableCell>
-                                <TableCell>{favBio.Occupation}</TableCell>
-                                
-                                <TableCell>
-                                    <IconButton onClick={() => handleDeleteRequest(favBio._id)} color="error">
-                                        {/* <DeleteIcon /> */}
-                                        <FaTrashAlt />
-                                    </IconButton>
-                                </TableCell>
+            <div data-aos="zoom-out-left">
+                <TableContainer className="shadow-lg">
+                    <Table>
+                        <TableHead>
+                            <TableRow className="bg-gray-200">
+                                <TableCell>Sl No</TableCell>
+                                <TableCell>Name</TableCell>
+                                <TableCell>Biodata Id</TableCell>
+                                <TableCell>Permanent Address</TableCell>
+                                <TableCell>Occupation</TableCell>
+                                <TableCell>Operation(Delete)</TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                        </TableHead>
+                        <TableBody>
+                            {filteredFavBio.map((favBio, index) => (
+                                <TableRow key={favBio._id}>
+                                    <TableCell>{index + 1}</TableCell>
+                                    <TableCell>{favBio.name}</TableCell>
+                                    <TableCell>{favBio.BiodataId}</TableCell>
+                                    <TableCell>{favBio.PermanentDivision}</TableCell>
+                                    <TableCell>{favBio.Occupation}</TableCell>
+
+                                    <TableCell>
+                                        <IconButton onClick={() => handleDeleteRequest(favBio._id)} color="error">
+                                            {/* <DeleteIcon /> */}
+                                            <FaTrashAlt />
+                                        </IconButton>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </div>
         </Box>
 
     );

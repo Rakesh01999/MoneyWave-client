@@ -83,8 +83,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/checkOut/:id',
-                // element: <PrivateRoute><CheckOut></CheckOut></PrivateRoute>,
-                element: <CheckOut></CheckOut>,
+                element: <PrivateRoute><CheckOut></CheckOut></PrivateRoute>,
+                // element: <CheckOut></CheckOut>,
                 loader: ({params}) => fetch(`https://matrimony-server-chi.vercel.app/checkOut/${params.id}`)  
             },
             {

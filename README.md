@@ -1,6 +1,6 @@
-# Matrimony Mate
+# Money Wave
 
-**Live Site:** [Matrimony Mate](https://matrimony-mate.web.app/)
+**Live Site:** [Money Wave](https://matrimony-mate.web.app/)
 
 ## Admin Credentials
 
@@ -45,4 +45,4 @@ Matrimony Mate is an advanced matrimonial platform designed to bring people toge
 
 For any support or inquiries, please contact at rbiswas01999@gmail.com.
 
-We hope you find your perfect match with Matrimony Mate!
+Hope you enjoy the best financial service with Money Wave !

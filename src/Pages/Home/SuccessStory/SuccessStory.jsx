@@ -40,7 +40,10 @@ const SuccessStory = () => {
 
   return (
     <div className="container mx-auto px-4">
+      <div data-aos="zoom-out-down">  
       <SectionTitle subHeading="Story Section" heading="Success Story" />
+      </div>
+      
       <Box className="flex justify-between items-center my-4">
         <Typography variant="h4" className="text-3xl text-blue-600">All Success Stories</Typography>
         <Button
@@ -55,13 +58,16 @@ const SuccessStory = () => {
       <section className="py-12">
         <Box className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {sortedStories.map((story, index) => (
+            
             <Card key={index} className="hover:shadow-2xl transition duration-300 ease-in-out" sx={{ backgroundColor: 'ButtonHighlight' }}>
+              <div data-aos="zoom-out-down">  
               <CardMedia
                 component="img"
                 height="200"
                 image={story.coupleImage}
                 alt="Couple"
               />
+              </div>
               <CardContent>
 
                 <Typography variant="body2" color="textSecondary" className="mt-2">

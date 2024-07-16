@@ -22,7 +22,7 @@ const MyContactRequest = () => {
 
     // const [payments, setPayments] = useState([]);
     const [filteredPayment, setFilteredPayment] = useState([]);
-    console.log("User Email:", user?.email);
+    // console.log("User Email:", user?.email);
 
     // useEffect(() => {
     //     const fetchPayments = async () => {
@@ -52,12 +52,12 @@ const MyContactRequest = () => {
 
     useEffect(() => {
         if (payments.length > 0 && user) {
-            console.log("Filtering payments for user:", user.email);
+            // console.log("Filtering payments for user:", user.email);
             const foundPayment = payments.filter(bio => bio.email === user.email);
             // const foundBiodata = biodatas.find(bio => bio.ContactEmail === user.email);
             setFilteredPayment(foundPayment);
             // console.log("Filtered biodata:", foundPayment);
-            console.log("Filtered Payment:", filteredPayment);
+            // console.log("Filtered Payment:", filteredPayment);
         }
     }, [payments, user]);
 
@@ -137,10 +137,13 @@ const MyContactRequest = () => {
         // </div>
 
         <Box className="p-4">
+            <div data-aos="zoom-out-down">  
             <Typography variant="h4" className="text-xl mb-4">
                 Total Contact Requests: {filteredPayment.length}
             </Typography>
+            </div>
             {/* <TableContainer component={Paper} className="shadow-lg"> */}
+            <div data-aos="zoom-out-up">  
             <TableContainer className="shadow-lg">
                 <Table>
                     <TableHead>
@@ -191,6 +194,7 @@ const MyContactRequest = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            </div>
         </Box>
     );
 };

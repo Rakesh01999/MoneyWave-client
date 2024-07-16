@@ -19,6 +19,8 @@ const ApprovedPremium = () => {
         }
     })
 
+    // console.log(users);
+
     const handleDeleteUser = user => {
         Swal.fire({
             title: "Are you sure?",
@@ -48,9 +50,12 @@ const ApprovedPremium = () => {
 
 
     const handleMakePremium = user => {
+        console.log(user._id);
+
         axiosSecure.patch(`/premiumRequests/premium/${user._id}`)
+        // axiosSecure.patch(`/premiumRequests/${user._id}`)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.data.modifiedCount > 0) {
                     refetch();
                     Swal.fire({
@@ -68,10 +73,13 @@ const ApprovedPremium = () => {
     return (
 
         <div>
+            <div data-aos="zoom-in-down">  
             <Box>
                 <SectionTitle subHeading="Premium Requests" heading="Approve Premium Section" />
                 {/* <SectionTitle heading="Manage Users" /> */}
             </Box>
+            </div>
+            <div data-aos="zoom-in-up">  
             <Box className="p-4">
                 <Box className="flex justify-evenly my-4">
                     <Typography variant="h4" className="text-3xl">All Premium Approval Requests: {users.length}</Typography>
@@ -95,6 +103,7 @@ const ApprovedPremium = () => {
                                     <TableCell>{index + 1}</TableCell>
                                     <TableCell>{user.name}</TableCell>
                                     <TableCell>{user.email}</TableCell>
+                                    {/* <TableCell>{user.ContactEmail}</TableCell> */}
 
                                     <TableCell>
                                         {user.userType === 'premium' ? (
@@ -125,6 +134,7 @@ const ApprovedPremium = () => {
                     </Table>
                 </TableContainer>
             </Box>
+            </div>
         </div>
 
     );

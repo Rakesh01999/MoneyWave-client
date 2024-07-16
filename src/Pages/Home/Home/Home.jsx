@@ -9,6 +9,9 @@ import HowItWorks from "../HowItWorks/HowItWorks";
 import SuccessCounter from "../SuccessCounter/SuccessCounter";
 import SuccessStory from "../SuccessStory/SuccessStory";
 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 const Home = () => {
     return (
         <div>

@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import useBiodata from '../../hooks/useBiodata';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import BiodataCard from '../../Components/BiodataCard/BiodataCard';
-import { FormControl, InputLabel, Select, MenuItem, Button, TextField } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem, Button, TextField, Pagination } from '@mui/material';
 
 const Biodatas = () => {
     const [biodatas, refetch] = useBiodata();
@@ -12,13 +12,17 @@ const Biodatas = () => {
 
     // State for filters
     const [filters, setFilters] = useState({
-        ageRange: { min: 18, max: 30 },
+        ageRange: { min: 18, max: 50 },
         biodataType: '',
         division: '',
     });
 
     // State for filtered biodatas
     const [filteredBiodatas, setFilteredBiodatas] = useState(biodatas);
+
+    // State for pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(6); // Set items per page
 
     useEffect(() => {
         setFilteredBiodatas(biodatas);
@@ -57,15 +61,26 @@ const Biodatas = () => {
         }
 
         setFilteredBiodatas(filtered);
+        setCurrentPage(1); // Reset to the first page after applying filters
     };
 
     const showAllBiodatas = () => {
         setFilteredBiodatas(biodatas);
         setFilters({
-            ageRange: { min: 18, max: 30 },
+            ageRange: { min: 18, max: 50 },
             biodataType: '',
             division: '',
         });
+        setCurrentPage(1); // Reset to the first page when showing all biodatas
+    };
+
+    // Calculate the data to display for the current page
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentBiodatas = filteredBiodatas?.slice(indexOfFirstItem, indexOfLastItem);
+
+    const handlePageChange = (event, value) => {
+        setCurrentPage(value);
     };
 
     return (
@@ -112,6 +127,9 @@ const Biodatas = () => {
                             name="ageRange.min"
                             value={filters.ageRange.min}
                             onChange={handleFilterChange}
+                            inputProps={{
+                                min: 18,
+                            }}
                             className="w-full sm:w-1/2"
                         />
                         <TextField
@@ -121,6 +139,9 @@ const Biodatas = () => {
                             name="ageRange.max"
                             value={filters.ageRange.max}
                             onChange={handleFilterChange}
+                            inputProps={{
+                                min: 18,
+                            }}
                             className="w-full sm:w-1/2"
                         />
                     </div>
@@ -137,7 +158,7 @@ const Biodatas = () => {
                     >
                         <MenuItem value="">All</MenuItem>
                         <MenuItem value="Dhaka">Dhaka</MenuItem>
-                        <MenuItem value="Chattagram">Chittagong</MenuItem>
+                        <MenuItem value="Chattagram">Chattagram</MenuItem>
                         <MenuItem value="Rangpur">Rangpur</MenuItem>
                         <MenuItem value="Barisal">Barisal</MenuItem>
                         <MenuItem value="Khulna">Khulna</MenuItem>
@@ -159,10 +180,16 @@ const Biodatas = () => {
                 <div className='px-4 py-8 bg-opacity-10 rounded-3xl flex flex-col items-center gap-6 mb-10'>
                     <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
                         {
-                            filteredBiodatas?.map(biodata => <BiodataCard key={biodata._id} biodata={biodata}></BiodataCard>)
-                            // filteredBiodatas.map(biodata => <BiodataCard key={biodata._id} biodata={biodata}></BiodataCard>)
+                            currentBiodatas?.map(biodata => <BiodataCard key={biodata._id} biodata={biodata}></BiodataCard>)
                         }
                     </div>
+                    <Pagination
+                        count={Math.ceil(filteredBiodatas?.length / itemsPerPage)}
+                        page={currentPage}
+                        onChange={handlePageChange}
+                        color="primary"
+                        className="mt-8"
+                    />
                 </div>
             </div>
         </div>
@@ -170,4 +197,3 @@ const Biodatas = () => {
 };
 
 export default Biodatas;
-

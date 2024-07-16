@@ -1,5 +1,6 @@
 import { Card, CardContent, Typography } from "@mui/material";
 import useAuth from "../../../hooks/useAuth";
+import logo from '../../../../src/assets/mm.png'
 
 const UserHome = () => {
     const { user } = useAuth();
@@ -18,15 +19,20 @@ const UserHome = () => {
                 <Card className="w-full max-w-lg mb-4">
                     <CardContent>
                         {/* <Typography variant="h5" className="text-center mb-4">Biodata Statistics</Typography> */}
+                        <div data-aos="zoom-out-down">
                         <div className="flex justify-center">
+                            <img src={logo} alt="" />
+                        </div>
                         </div>
                     </CardContent>
                 </Card>
                 <Card className="w-full max-w-lg">
                     <CardContent>
+                    <div data-aos="zoom-out-right">  
                         <Typography variant="h5" className="text-center mb-4">
                             Welcome to the Matrimony Mate .
                         </Typography>
+                    </div>
                     </CardContent>
                 </Card>
             </div>

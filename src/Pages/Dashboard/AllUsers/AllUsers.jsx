@@ -35,7 +35,7 @@ const AllUsers = () => {
                             refetch();
                             Swal.fire({
                                 title: "Deleted!",
-                                text: "Your file has been deleted.",
+                                text: "User has been deleted.",
                                 icon: "success"
                             });
                         }
@@ -133,77 +133,81 @@ const AllUsers = () => {
         // </div>
 
         <div>
-            <div>
-                {/* <SectionTitle subHeading="Premium Requests" heading="Manage Users" /> */}
+            <div data-aos="zoom-out-up">
                 <SectionTitle heading="Manage Users" />
             </div>
             <Box className="p-4">
-                <Box className="flex justify-evenly my-4">
-                    <Typography variant="h4" className="text-3xl">All Users</Typography>
-                    <Typography variant="h4" className="text-3xl">Total Users: {users.length}</Typography>
-                </Box>
+                <div data-aos="zoom-out-down">
+                    <Box className="flex justify-evenly my-4">
+                        <Typography variant="h4" className="text-3xl">All Users</Typography>
+                        <Typography variant="h4" className="text-3xl">Total Users: {users.length}</Typography>
+                    </Box>
+                </div>
 
-                <TableContainer className="shadow-lg overflow-x-auto">
-                    <Table className="w-full">
-                        <TableHead>
-                            <TableRow className="bg-gray-200">
-                                <TableCell>Index</TableCell>
-                                <TableCell>User Name</TableCell>
-                                <TableCell>User Email</TableCell>
-                                <TableCell>Role (Make Admin)</TableCell>
-                                <TableCell>Make Premium</TableCell>
-                                <TableCell>Action</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {users.map((user, index) => (
-                                <TableRow key={user._id} className="hover:bg-gray-100">
-                                    <TableCell>{index + 1}</TableCell>
-                                    <TableCell>{user.name}</TableCell>
-                                    <TableCell>{user.email}</TableCell>
-                                    <TableCell>
-                                        {user.role === 'admin' ? (
-                                            'Admin'
-                                        ) : (
-                                            <Button
-                                                onClick={() => handleMakeAdmin(user)}
-                                                variant="contained"
-                                                color="primary"
-                                                className="bg-blue-500 text-white"
-                                                startIcon={<MdOutlineAdminPanelSettings className="text-2xl" />}
-                                            >
-                                                Make Admin
-                                            </Button>
-                                        )}
-                                    </TableCell>
-                                    <TableCell>
-                                        {user.userType === 'premium' ? (
-                                            'Premium'
-                                        ) : (
-                                            <Button
-                                                onClick={() => handleMakePremium(user)}
-                                                variant="contained"
-                                                color="warning"
-                                                className="bg-yellow-200 text-white"
-                                                startIcon={<MdWorkspacePremium className="text-2xl" />}
-                                            >
-                                                Make Premium
-                                            </Button>
-                                        )}
-                                    </TableCell>
-                                    <TableCell>
-                                        <IconButton
-                                            onClick={() => handleDeleteUser(user)}
-                                            className="text-red-500"
-                                        >
-                                            <FaTrashAlt />
-                                        </IconButton>
-                                    </TableCell>
+                <div data-aos="zoom-out-down">
+                    <TableContainer className="shadow-lg overflow-x-auto">
+                        <Table className="w-full">
+                            <TableHead>
+                                <TableRow className="bg-gray-200">
+                                    <TableCell>Index</TableCell>
+                                    <TableCell>User Name</TableCell>
+                                    <TableCell>User Email</TableCell>
+                                    <TableCell>Role (Make Admin)</TableCell>
+                                    <TableCell>Make Premium</TableCell>
+                                    <TableCell>Action</TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                            </TableHead>
+                            <TableBody>
+                                {users.map((user, index) => (
+                                    <TableRow key={user._id} className="hover:bg-gray-100">
+                                        <TableCell>{index + 1}</TableCell>
+                                        <TableCell>{user.name}</TableCell>
+                                        <TableCell>{user.email}</TableCell>
+                                        <TableCell>
+                                            {user.role === 'admin' ? (
+                                                'Admin'
+                                            ) : (
+                                                <Button
+                                                    onClick={() => handleMakeAdmin(user)}
+                                                    variant="contained"
+                                                    color="primary"
+                                                    className="bg-blue-500 text-white"
+                                                    startIcon={<MdOutlineAdminPanelSettings className="text-2xl" />}
+                                                >
+                                                    Make Admin
+                                                </Button>
+                                            )}
+                                        </TableCell>
+                                        <TableCell>
+                                            {user.userType === 'premium' ? (
+                                                'Premium'
+                                            ) : (
+                                                <Button
+                                                    onClick={() => handleMakePremium(user)}
+                                                    variant="contained"
+                                                    color="warning"
+                                                    className="bg-yellow-200 text-white"
+                                                    startIcon={<MdWorkspacePremium className="text-2xl" />}
+                                                >
+                                                    Make Premium
+                                                </Button>
+                                            )}
+                                        </TableCell>
+                                        <TableCell>
+                                            <IconButton
+                                                onClick={() => handleDeleteUser(user)}
+                                                className="text-red-500"
+                                            >
+                                                <FaTrashAlt />
+                                            </IconButton>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </div>
+
             </Box>
         </div>
 

@@ -45,7 +45,10 @@ const GotMarried = () => {
 
     return (
         <Box className="p-4">
+            <div data-aos="zoom-out-down">  
             <SectionTitle subHeading="Got Married" heading="Share Your Success Story" />
+            </div>
+            <div data-aos="zoom-in-down">  
             <Box mt={8} p={4} bgcolor="white" boxShadow={3} borderRadius={0}>
                 <Typography variant="h4" align="center" gutterBottom>
                     <span className="text-blue-500 font-bold">Tell Us About Your Journey</span>
@@ -103,6 +106,7 @@ const GotMarried = () => {
                     </Link>
                 </Typography>
             </Box>
+            </div>
         </Box>
     );
 };

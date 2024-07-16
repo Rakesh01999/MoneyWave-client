@@ -58,7 +58,7 @@ const ApprovedContactRequest = () => {
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
-                        title: `Contact Request of ${payment.name} is  Approved !`,
+                        title: `Contact Request for ${payment.name} is  Approved !`,
                         showConfirmButton: false,
                         timer: 1500
                     });
@@ -69,10 +69,13 @@ const ApprovedContactRequest = () => {
 
     return (
         <div>
+            <div data-aos="zoom-in-left">  
             <Box>
                 <SectionTitle subHeading="Approve Contact Requests" heading="Approve Contact Info Section" />
                 {/* <SectionTitle heading="Manage Users" /> */}
             </Box>
+            </div>
+            <div data-aos="zoom-in-right">  
             <Box className="p-4">
                 <Box className="flex justify-evenly my-4">
                     <Typography variant="h4" className="text-3xl">All Approval Contact Requests: {payments.length}</Typography>
@@ -128,6 +131,7 @@ const ApprovedContactRequest = () => {
                     </Table>
                 </TableContainer>
             </Box>
+            </div>
         </div>
     );
 };

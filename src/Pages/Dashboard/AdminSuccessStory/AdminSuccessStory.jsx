@@ -56,72 +56,77 @@ const AdminSuccessStory = () => {
 
   return (
     <div>
-      <Box>
-        <SectionTitle subHeading="Admin Section" heading="Success Stories" />
-      </Box>
-      <Box className="p-4">
-        <Box className="flex justify-evenly my-4">
-          <Typography variant="h4" className="text-3xl">All Success Stories: {stories.length}</Typography>
+      <div data-aos="zoom-in-down">
+        <Box>
+          <SectionTitle subHeading="Admin Section" heading="Success Stories" />
         </Box>
-        <TableContainer className="shadow-lg overflow-x-auto">
-          <Table className="w-full">
-            <TableHead>
-              <TableRow className="bg-gray-200">
-                <TableCell>Index</TableCell>
-                <TableCell>Male Biodata Id</TableCell>
-                <TableCell>Female Biodata Id</TableCell>
-                <TableCell>Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {stories.map((story, index) => (
-                <TableRow key={story._id} className="hover:bg-gray-100">
-                  <TableCell>{index + 1}</TableCell>
-                  <TableCell>{story.selfBiodataId}</TableCell>
-                  <TableCell>{story.partnerBiodataId}</TableCell>
-                  <TableCell>
-                    <Button
-                      onClick={() => handleViewStory(story)}
-                      variant="contained"
-                      color="primary"
-                      className="text-white"
-                    >
-                      View Story
-                    </Button>
-                    <IconButton
-                      onClick={() => handleDeleteStory(story)}
-                      className="text-red-500 ml-2"
-                    >
-                      <FaTrashAlt />
-                    </IconButton>
-                  </TableCell>
+      </div>
+      <div data-aos="zoom-out-up">
+        <Box className="p-4">
+          <Box className="flex justify-evenly my-4">
+            <Typography variant="h4" className="text-3xl">All Success Stories: {stories.length}</Typography>
+          </Box>
+          <TableContainer className="shadow-lg overflow-x-auto">
+            <Table className="w-full">
+              <TableHead>
+                <TableRow className="bg-gray-200">
+                  <TableCell>Index</TableCell>
+                  <TableCell>Male Biodata Id</TableCell>
+                  <TableCell>Female Biodata Id</TableCell>
+                  <TableCell>Actions</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Box>
-
-      <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
-        <DialogTitle className="text-center">Success Story</DialogTitle>
-        <DialogContent>
-          {selectedStory && (
-            <div>
-              <Typography variant="h6" gutterBottom>
-                Story by: {selectedStory.userName}
-              </Typography>
-              <Typography variant="body1" gutterBottom>
-                {selectedStory.story}
-              </Typography>
-              <img
-                src={selectedStory.coupleImage}
-                alt="Couple"
-                className="w-full h-auto object-cover rounded"
-              />
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+              </TableHead>
+              <TableBody>
+                {stories.map((story, index) => (
+                  <TableRow key={story._id} className="hover:bg-gray-100">
+                    <TableCell>{index + 1}</TableCell>
+                    <TableCell>{story.selfBiodataId}</TableCell>
+                    <TableCell>{story.partnerBiodataId}</TableCell>
+                    <TableCell>
+                      <Button
+                        onClick={() => handleViewStory(story)}
+                        variant="contained"
+                        color="primary"
+                        className="text-white"
+                      >
+                        View Story
+                      </Button>
+                      <IconButton
+                        onClick={() => handleDeleteStory(story)}
+                        className="text-red-500 ml-2"
+                      >
+                        <FaTrashAlt />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      </div>
+      <div data-aos="zoom-out-left">
+        <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+          <DialogTitle className="text-center">Success Story</DialogTitle>
+          <DialogContent>
+            {selectedStory && (
+              <div>
+                <Typography variant="h6" gutterBottom>
+                  Story by: {selectedStory.userName}
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                  {selectedStory.story}
+                </Typography>
+                <img
+                  src={selectedStory.coupleImage}
+                  alt="Couple"
+                  className="w-full h-auto object-cover rounded"
+                />
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
+      </div>
     </div>
   );
 };

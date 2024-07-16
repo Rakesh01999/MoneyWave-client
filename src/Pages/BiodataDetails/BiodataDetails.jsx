@@ -6,13 +6,12 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { Box, Button, Typography } from '@mui/material';
 import { AuthContext } from '../providers/AuthProvider';
 import Swal from 'sweetalert2';
-import { toast } from 'react-toastify';
+import { useQuery } from '@tanstack/react-query';
 
 const BiodataDetails = () => {
     const biodata = useLoaderData();
-    // console.log(biodata);
     const axiosSecure = useAxiosSecure();
-    const { _id, BiodataId, name, BiodataType, ProfileImage, PermanentDivision, Age, Occupation } = biodata;
+    const { _id, BiodataId, name, BiodataType, ProfileImage, PermanentDivision, Age, Occupation, Email, PhoneNumber } = biodata;
     const [similarBiodatas, setSimilarBiodatas] = useState([]);
     const { user } = useContext(AuthContext);
 
@@ -33,66 +32,69 @@ const BiodataDetails = () => {
         fetch('https://matrimony-server-chi.vercel.app/favouriteBiodata')
             .then(res => res.json())
             .then(data => setFavouriteBiodata(data));
-    }, [])
-    // console.log('favouriteBiodata : ', favouriteBiodata);
-    // console.log('BiodataId : ', BiodataId);
+    }, []);
 
     const email = user.email;
 
-
-    const newFavouriteBiodata = { BiodataId, name, BiodataType, ProfileImage, PermanentDivision, Age, Occupation, email }
-    // --------
+    const newFavouriteBiodata = { BiodataId, name, BiodataType, ProfileImage, PermanentDivision, Age, Occupation, email };
 
     const handleAddToFavouriteBiodata = async () => {
-
         const isAlreadyFavourite = favouriteBiodata.find((favBiodata) =>
             favBiodata.BiodataId === BiodataId && favBiodata.email === user.email
         );
-        const userFavouriteBiodata = favouriteBiodata.filter((favBiodata) => favBiodata.email === user.email);
-        // console.log('userFavouriteBiodata', userFavouriteBiodata.length);
 
-        // if already exist or not 
         if (isAlreadyFavourite) {
             Swal.fire({
                 title: 'Error!',
-                text: 'You have already add this biodata to favourite collection. ',
+                text: 'You have already added this biodata to your favourite collection.',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
-            // toast.error("adding a biodata twice for a single user is not allowed ");
             return;
         }
-        else {
 
-            try {
-                // const response = await axiosSecure.post('/favouriteBiodata', biodata);
-                const response = await axiosSecure.post('/favouriteBiodata', newFavouriteBiodata);
-                // console.log('Biodata added to favorite collection:', response.data);
-                // You can show a success message or perform any other desired action
-                Swal.fire({
-                    title: 'success!',
-                    text: 'Successfully added this biodata to favourite collection. ',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                });
-            }
-            catch (error) {
-                console.error('Error adding biodata to favorite collection:', error);
-            }
+        try {
+            const response = await axiosSecure.post('/favouriteBiodata', newFavouriteBiodata);
+            Swal.fire({
+                title: 'Success!',
+                text: 'Successfully added this biodata to your favourite collection.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        } catch (error) {
+            console.error('Error adding biodata to favourite collection:', error);
         }
-    }
+    };
 
-    const handleRequestContact = (_id) => {
-        console.log(_id);
-    }
+    // --------- combine all premium users -----
 
+    const { data: premiumUsers = [] } = useQuery({
+        queryKey: ['premiumUsers'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/premiumUsers/users');
+            return res.data;
+        }
+    });
+
+    const { data: premiumRequests = [] } = useQuery({
+        queryKey: ['premiumRequests'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/premiumUsers/premiumRequests');
+            return res.data;
+        }
+    });
+
+    // Combine the data from both collections
+    const allPremiumData = [...premiumUsers, ...premiumRequests];
+
+    // Check if the current user is in the combined premium data
+    const isPremiumUser = allPremiumData.some((premiumUser) => premiumUser.email === user.email);
 
     return (
         <div>
             <Helmet>
                 <title>Matrimony Mate | Biodata Details</title>
             </Helmet>
-
 
             <Box className="max-w-[370px] md:max-w-[540px] lg:max-w-[1540px] mx-auto px-4 md:px-8 py-8 md:py-12 mt-20 bg-blue-300 rounded-3xl flex flex-col items-center mb-10">
                 <Typography variant="h3" className="text-center my-8 md:my-12">
@@ -114,7 +116,7 @@ const BiodataDetails = () => {
                     </Typography>
                     <hr className="my-3" />
                     <Typography variant="body1">
-                        <span className="font-bold">Location:</span> {PermanentDivision}
+                        <span className="font-bold">Location(PermanentDivision):</span> {PermanentDivision}
                     </Typography>
                     <Typography variant="body1" className="my-5">
                         <span className="font-bold">Age:</span> {Age}
@@ -127,9 +129,34 @@ const BiodataDetails = () => {
                         <Typography variant="body1">{Occupation}</Typography>
                     </Box>
                     <hr className="my-3 border-green-500" />
+
+                    {
+                        isPremiumUser ?
+                            <>
+                                <Typography variant="body1" className="mt-4">
+                                    <span className="font-bold">Email:</span> {biodata.ContactEmail}
+                                </Typography>
+                                <Typography variant="body1" className="mt-4">
+                                    <span className="font-bold">Phone Number:</span> {biodata.MobileNumber}
+                                </Typography>
+                            </>
+                            :
+                            <>
+                                <div className="flex justify-center mt-4">
+                                    <Link to={`/checkOut/${_id}`}>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            className="mt-4 w-full"
+                                        >
+                                            Request Contact Info
+                                        </Button>
+                                    </Link>
+                                </div>
+                            </>
+                    }
                 </Box>
 
-                {/* Add to Favourite button  */}
                 <div className="flex justify-center">
                     <Button
                         onClick={handleAddToFavouriteBiodata}
@@ -141,24 +168,7 @@ const BiodataDetails = () => {
                     </Button>
                 </div>
 
-                {/* Request Contact Info button  */}
-                <div className="flex justify-center mt-4">
-                    {/* <Link to={`/checkOut/${BiodataId}`}> */}
-                    {/* <Link to={`/payment/${BiodataId}`}> */}
-                    {/* <Link to={`/payment/${_id}`}> */}
-                    {/* <Link to={`/biodatas/${_id}`}> */}
-                    <Link to={`/checkOut/${_id}`}>
-                        <Button
-                            onClick={() => handleRequestContact(_id)}
-                            variant="contained"
-                            color="primary"
-                            // className="mt-4 w-1/2"
-                            className="mt-4 w-full"
-                        >
-                            Request Contact Info
-                        </Button>
-                    </Link>
-                </div>
+
             </Box>
 
             <Box className="max-w-[370px] md:max-w-[540px] lg:max-w-[1540px] mx-auto px-4 md:px-8 py-8 md:py-12 bg-blue-300 rounded-3xl flex flex-col items-center mb-10">

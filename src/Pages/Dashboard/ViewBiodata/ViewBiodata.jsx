@@ -60,33 +60,63 @@ const ViewBiodata = () => {
     //     }
     // }, [premiumRequests, user]);
 
-
+    // console.log(filteredBiodata)
 
     // ------ handleMakePremium ------
     const handleMakePremium = (biodata) => {
         // ---- checking request ------
-        
-        // console.log(biodata);
+
+        const {
+            _id,
+            email,
+            name,
+            date,
+            "biodata._id": biodataId,
+            BiodataType,
+            ProfileImage,
+            DateOfBirth,
+            Height,
+            Weight,
+            Age,
+            Occupation,
+            FathersName,
+            MothersName,
+            PermanentDivision,
+            presentDivision,
+            ExpectedPartnerAge,
+            ExpectedPartnerHeight,
+            ExpectedPartnerWeight,
+            ContactEmail,
+            MobileNumber,
+            BiodataId,
+            premiumRequeststatus,
+            userType
+        } = biodata;
+        // console.log(_id, email, name, date, biodataId, BiodataType, ProfileImage, DateOfBirth, Height, Weight, Age, Occupation, FathersName, MothersName, PermanentDivision, presentDivision, ExpectedPartnerAge, ExpectedPartnerHeight, ExpectedPartnerWeight, ContactEmail, MobileNumber, BiodataId, premiumRequeststatus, userType);
+
+        console.log(biodata._id);
+        // console.log(biodata.ContactEmail);
         const isAlreadyPremiumRequest = premiumRequests.find((premiumRequest) =>
-            premiumRequest.biodata._id === biodata._id && premiumRequest.email === user.email
+            premiumRequest._id === biodata._id && premiumRequest.ContactEmail === user.email
         );
-        // const isAlreadyPremium = premiumRequests.find((premiumRequest) =>
-        //     premiumRequest.biodata._id === biodata._id && premiumRequest.userType === 'premium'
-        // );
+        const isAlreadyPremium = premiumRequests.find((premium) =>
+            premium._id === biodata._id && premium.userType === 'premium'
+        );
+        console.log(isAlreadyPremiumRequest);
+        console.log(isAlreadyPremium);
 
         // if already exist or not 
         if (isAlreadyPremiumRequest) {
             Swal.fire({
                 title: 'Error!',
                 text: 'You have already submitted a request. ',
-                // text: ' Borrowing a book twice for a single user is not allowed',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
             // toast.error("Borrowing a book twice for a single user is not allowed ");
             return;
         }
-        else{
+        else {
             Swal.fire({
                 title: "Are you sure?",
                 text: "You want to make your biodata premium !",
@@ -98,17 +128,46 @@ const ViewBiodata = () => {
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     try {
+                        // const premiumRequest = {
+                        //     email: user.email,
+                        //     BiodataId: biodata.BiodataId,
+                        //     name: biodata.name,
+                        //     date: new Date(),
+                        //     biodata,
+                        //     premiumRequeststatus: 'pending',
+                        //     userType: 'normal'
+                        // }
                         const premiumRequest = {
-                            email: user.email,
-                            BiodataId: biodata.BiodataId,
-                            name: biodata.name,
+                            // _id,
+                            email: biodata.ContactEmail,
+                            name,
                             date: new Date(),
-                            biodata,
+                            "biodata._id": biodata._id,
+                            BiodataType,
+                            ProfileImage,
+                            DateOfBirth,
+                            Height,
+                            Weight,
+                            Age,
+                            Occupation,
+                            FathersName,
+                            MothersName,
+                            PermanentDivision,
+                            presentDivision,
+                            ExpectedPartnerAge,
+                            ExpectedPartnerHeight,
+                            ExpectedPartnerWeight,
+                            ContactEmail,
+                            MobileNumber,
+                            BiodataId,
                             premiumRequeststatus: 'pending',
                             userType: 'normal'
                         }
+                        console.log(premiumRequest);
+                        console.log(biodata.ContactEmail);
                         // await axiosSecure.post(`https://matrimony-server-chi.vercel.app/biodatas/${biodata._id}/request-premium`);
                         await axiosSecure.post(`/premiumRequests`, premiumRequest);
+                        // await axiosSecure.post(`/premiumRequests`, biodata);
                         Swal.fire({
                             title: "Requested!",
                             text: "Your biodata has been sent for premium approval.",
@@ -130,77 +189,80 @@ const ViewBiodata = () => {
 
     return (
         <div>
-            <SectionTitle heading="View Biodata" subHeading="Bio Info" />
+            <div data-aos="zoom-out-left">
+                <SectionTitle heading="View Biodata" subHeading="Bio Info" />
+            </div>
+            <div data-aos="zoom-out-right">
+                <Box className="max-w-[370px] md:max-w-[540px] lg:max-w-[1540px] mx-auto px-4 md:px-8 py-8 md:py-12 mt-1 bg-blue-300 rounded-3xl flex flex-col items-center mb-10">
+                    {filteredBiodata.length > 0 ? (
+                        filteredBiodata.map((biodata, index) => (
+                            <Card key={index} variant="outlined" sx={{ width: '100%', mt: 4 }}>
+                                <CardContent>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12} sm={6}>
+                                            <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Name:</span> {biodata.name}</Typography>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Biodata Type:</span> {biodata.BiodataType}</Typography>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Date of Birth:</span> {biodata.DateOfBirth}</Typography>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Height:</span> {biodata.Height}</Typography>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Weight:</span> {biodata.Weight}</Typography>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Age:</span> {biodata.Age}</Typography>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Occupation:</span> {biodata.Occupation}</Typography>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Father's Name:</span> {biodata.FathersName}</Typography>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Mother's Name:</span> {biodata.MothersName}</Typography>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Permanent Division:</span> {biodata.PermanentDivision}</Typography>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Present Division:</span> {biodata.presentDivision}</Typography>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Expected Partner Age:</span> {biodata.ExpectedPartnerAge}</Typography>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Expected Partner Height:</span> {biodata.ExpectedPartnerHeight}</Typography>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Expected Partner Weight:</span> {biodata.ExpectedPartnerWeight}</Typography>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Contact Email:</span> {biodata.ContactEmail}</Typography>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Mobile Number:</span> {biodata.MobileNumber}</Typography>
+                                        </Grid>
+                                    </Grid>
+                                    {/* ------ Button --------- */}
+                                    <Grid container direction="column" alignItems="center" justifyContent="center">
+                                        <Button variant="contained" color="primary" sx={{ mt: 2 }} onClick={() => handleMakePremium(biodata)}>
+                                            Make Biodata Premium
+                                        </Button>
+                                    </Grid>
 
-            <Box className="max-w-[370px] md:max-w-[540px] lg:max-w-[1540px] mx-auto px-4 md:px-8 py-8 md:py-12 mt-1 bg-blue-300 rounded-3xl flex flex-col items-center mb-10">
-                {filteredBiodata.length > 0 ? (
-                    filteredBiodata.map((biodata, index) => (
-                        <Card key={index} variant="outlined" sx={{ width: '100%', mt: 4 }}>
-                            <CardContent>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12} sm={6}>
-                                        <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Name:</span> {biodata.name}</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Biodata Type:</span> {biodata.BiodataType}</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Date of Birth:</span> {biodata.DateOfBirth}</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Height:</span> {biodata.Height}</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Weight:</span> {biodata.Weight}</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Age:</span> {biodata.Age}</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Occupation:</span> {biodata.Occupation}</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Father's Name:</span> {biodata.FathersName}</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Mother's Name:</span> {biodata.MothersName}</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Permanent Division:</span> {biodata.PermanentDivision}</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Present Division:</span> {biodata.presentDivision}</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Expected Partner Age:</span> {biodata.ExpectedPartnerAge}</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Expected Partner Height:</span> {biodata.ExpectedPartnerHeight}</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Expected Partner Weight:</span> {biodata.ExpectedPartnerWeight}</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Contact Email:</span> {biodata.ContactEmail}</Typography>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <Typography variant="h6"><span style={{ fontWeight: 'bold' }}>Mobile Number:</span> {biodata.MobileNumber}</Typography>
-                                    </Grid>
-                                </Grid>
-                                {/* ------ Button --------- */}
-                                <Grid container direction="column" alignItems="center" justifyContent="center">
-                                    <Button variant="contained" color="primary" sx={{ mt: 2 }} onClick={() => handleMakePremium(biodata)}>
-                                        Make Biodata Premium
-                                    </Button>
-                                </Grid>
-
-                            </CardContent>
-                        </Card>
-                    ))
-                ) : (
-                    <Typography>No biodata found for the current user.</Typography>
-                )}
-            </Box>
+                                </CardContent>
+                            </Card>
+                        ))
+                    ) : (
+                        <Typography>No biodata found for the current user.</Typography>
+                    )}
+                </Box>
+            </div>
         </div>
     );
 };

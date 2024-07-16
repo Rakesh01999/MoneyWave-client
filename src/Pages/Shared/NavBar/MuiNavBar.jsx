@@ -82,7 +82,7 @@ const MuiNavBar = () => {
                     <Link to="/" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
                         <img src={logo} alt="Logo" style={{ height: 40, marginRight: 10 }} />
                         <Typography variant="h6" component="div" sx={{ color: "white" }}>
-                            Matrimony Mate
+                            Money Wave
                         </Typography>
                     </Link>
                     <div style={{ flexGrow: 1 }} />
@@ -113,6 +113,7 @@ const MuiNavBar = () => {
                                     variant="body1"
                                     component="div"
                                     onClick={handleAdminDashboardClick}
+                                    // style={{ cursor: "pointer", color: "inherit" }}
                                     style={{ cursor: "pointer", color: "inherit" }}
                                 >
                                     Dashboard
@@ -203,6 +204,7 @@ const MuiNavBar = () => {
                         // </li>
 
                         <Typography
+                            className="text-center mt-3"
                             variant="body1"
                             component="div"
                             onClick={handleUserDashboardClick}
@@ -219,6 +221,7 @@ const MuiNavBar = () => {
                             // </li>
 
                             <Typography
+                                // className="text-center mt-3"
                                 className="text-center mt-3"
                                 variant="body1"
                                 component="div"
