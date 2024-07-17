@@ -16,72 +16,68 @@ const Register = () => {
     const { createUser } = useContext(AuthContext);
     const [registerError, setRegisterError] = useState('');
     const [success, setSuccess] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
+    const [showPin, setShowPin] = useState(false);
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
 
     const handleRegister = e => {
         e.preventDefault();
         const name = e.target.name.value;
-        const photo = e.target.photo.value;
         const email = e.target.email.value;
-        const password = e.target.password.value;
+        const pin = e.target.pin.value;
+        const mobileNumber = e.target.mobileNumber.value;
 
+        const password = pin ;
+        
         setRegisterError('');
         setSuccess('');
 
-        if (password.length < 6) {
-            setRegisterError('Password should be at least 6 characters or longer');
-            return;
-        }
-        else if (!/[A-Z]/.test(password)) {
-            setRegisterError('Your password should have at least one upper case characters.')
-            return;
-        }
-        else if (!/[a-z]/.test(password)) {
-            setRegisterError('Your password should have at least one lower case characters.')
-            return;
-        }
-        else if (!/[!@#$%^&*()_+=[\]{};':"\\|,.<>/?]+/.test(password)) {
-            setRegisterError('Your password should have at least one special character.');
+
+        // PIN validation
+        if (!/^\d{6}$/.test(pin)) {
+            setRegisterError('PIN must be a 6-digit number');
             return;
         }
 
         createUser(email, password)
+        // createUser(email, pin)
             .then(result => {
                 setSuccess('User Created Successfully.');
                 toast.success('User Created Successfully.')
                 const loggedUser = result.user;
                 updateProfile(result.user, {
                     displayName: name,
-                    photoURL: photo
+                    pin : pin
                 })
-                .then(() => {
-                    console.log('user profile info update')
-                    // create user entry in the database
-                    const userInfo = {
-                        name: name,
-                        email: email
-                    }
-                    console.log(userInfo);
-                    axiosPublic.post('/users', userInfo)
-                        .then(res => {
-                            if (res.data.insertedId) {
-                                console.log('user added to the database');
-                                // reset();
-                                Swal.fire({
-                                    position: "top-end",
-                                    icon: "success",
-                                    title: "User created successfully",
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                });
-                                navigate('/');
-                            }
-                        })
+                    .then(() => {
+                        console.log('user profile info update')
+                        // create user entry in the database
+                        const userInfo = {
+                            name: name,
+                            email: email,
+                            pin: pin,
+                            mobileNumber: mobileNumber,
+                            status: "pending"
+                        }
+                        console.log(userInfo);
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log('user added to the database');
+                                    // reset();
+                                    Swal.fire({
+                                        position: "top-end",
+                                        icon: "success",
+                                        title: "User created successfully",
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    navigate('/');
+                                }
+                            })
 
-                })
-                .catch(error => console.log(error))
+                    })
+                    .catch(error => console.log(error))
             })
             .catch(error => {
                 console.error(error);
@@ -117,16 +113,16 @@ const Register = () => {
                             margin="normal"
                         />
                         <TextField
-                            label="Photo URL"
-                            name="photo"
+                            label="Mobile Number"
+                            name="mobileNumber"
                             required
                             fullWidth
                             margin="normal"
                         />
                         <TextField
-                            label="Password"
-                            name="password"
-                            type={showPassword ? "text" : "password"}
+                            label="6-digit PIN"
+                            name="pin"
+                            type={showPin ? "text" : "password"}
                             required
                             fullWidth
                             margin="normal"
@@ -134,9 +130,9 @@ const Register = () => {
                                 endAdornment: (
                                     <span
                                         className="cursor-pointer"
-                                        onClick={() => setShowPassword(!showPassword)}
+                                        onClick={() => setShowPin(!showPin)}
                                     >
-                                        {showPassword ? <FaEye /> : <FaEyeSlash />}
+                                        {showPin ? <FaEye /> : <FaEyeSlash />}
                                     </span>
                                 ),
                             }}

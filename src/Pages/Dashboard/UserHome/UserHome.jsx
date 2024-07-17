@@ -30,7 +30,7 @@ const UserHome = () => {
                     <CardContent>
                     <div data-aos="zoom-out-right">  
                         <Typography variant="h5" className="text-center mb-4">
-                            Welcome to the Matrimony Mate .
+                            Welcome to the Money Wave .
                         </Typography>
                     </div>
                     </CardContent>
