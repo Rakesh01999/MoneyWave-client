@@ -1,6 +1,6 @@
 # Money Wave
 
-**Live Site:** [Money Wave](https://matrimony-mate.web.app/)
+**Live Site:** [Money Wave]
 
 ## Admin Credentials
 
