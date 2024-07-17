@@ -1,3 +1,6 @@
+
+// --------- Login.jsx ----------
+
 import React, { useContext, useEffect, useState } from 'react';
 import { FacebookAuthProvider, getAuth, signInWithPopup, updateProfile } from "firebase/auth";
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -12,7 +15,6 @@ import { AuthContext } from '../providers/AuthProvider';
 import useAuth from '../../hooks/useAuth';
 import { Button, TextField } from '@mui/material';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
-// import { Button, TextField } from '@material-ui/core';
 
 
 const Login = () => {
@@ -71,6 +73,7 @@ const Login = () => {
           name: result.user?.displayName
         }
         axiosPublic.post('/users', userInfo)
+        // axiosPublic.post('/login', userInfo)
           .then(res => {
             console.log(res.data)
             navigate('/');
@@ -185,3 +188,5 @@ const Login = () => {
 };
 
 export default Login;
+
+

@@ -6,9 +6,8 @@ import { updateProfile } from "firebase/auth";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from "../providers/AuthProvider";
-import { TextField, Button, Typography, Box, Container } from "@mui/material";
+import { TextField, Button, Typography, Box, Container, RadioGroup, FormControlLabel, Radio, FormControl, FormLabel } from "@mui/material";
 import bgRegister from '../../../src/assets/images/bgReg.jpg'
-import { data } from "autoprefixer";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 
@@ -17,6 +16,7 @@ const Register = () => {
     const [registerError, setRegisterError] = useState('');
     const [success, setSuccess] = useState('');
     const [showPin, setShowPin] = useState(false);
+    const [role, setRole] = useState('user');
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
 
@@ -27,11 +27,10 @@ const Register = () => {
         const pin = e.target.pin.value;
         const mobileNumber = e.target.mobileNumber.value;
 
-        const password = pin ;
+        const password = pin;
         
         setRegisterError('');
         setSuccess('');
-
 
         // PIN validation
         if (!/^\d{6}$/.test(pin)) {
@@ -40,14 +39,13 @@ const Register = () => {
         }
 
         createUser(email, password)
-        // createUser(email, pin)
             .then(result => {
                 setSuccess('User Created Successfully.');
                 toast.success('User Created Successfully.')
                 const loggedUser = result.user;
                 updateProfile(result.user, {
                     displayName: name,
-                    pin : pin
+                    pin: pin
                 })
                     .then(() => {
                         console.log('user profile info update')
@@ -57,6 +55,7 @@ const Register = () => {
                             email: email,
                             pin: pin,
                             mobileNumber: mobileNumber,
+                            role: role,
                             status: "pending"
                         }
                         console.log(userInfo);
@@ -64,7 +63,6 @@ const Register = () => {
                             .then(res => {
                                 if (res.data.insertedId) {
                                     console.log('user added to the database');
-                                    // reset();
                                     Swal.fire({
                                         position: "top-end",
                                         icon: "success",
@@ -75,7 +73,6 @@ const Register = () => {
                                     navigate('/');
                                 }
                             })
-
                     })
                     .catch(error => console.log(error))
             })
@@ -86,7 +83,6 @@ const Register = () => {
     }
 
     return (
-        // <div className="bg-cover bg-center min-h-screen" style={{ backgroundImage: "url('path/to/your/background-image.jpg')" }}>
         <div className="bg-cover bg-center" style={{ backgroundImage: "url('../../../src/assets/images/bgReg.jpg')" }}>
             <Helmet>
                 <title>Register</title>
@@ -137,13 +133,26 @@ const Register = () => {
                                 ),
                             }}
                         />
+                        <FormControl component="fieldset" margin="normal">
+                            <FormLabel component="legend">Role</FormLabel>
+                            <RadioGroup
+                                aria-label="role"
+                                name="role"
+                                value={role}
+                                onChange={(e) => setRole(e.target.value)}
+                                row
+                            >
+                                <FormControlLabel value="user" control={<Radio />} label="User" />
+                                <FormControlLabel value="agent" control={<Radio />} label="Agent" />
+                                <FormControlLabel value="admin" control={<Radio />} label="Admin" />
+                            </RadioGroup>
+                        </FormControl>
                         <Button
                             type="submit"
                             variant="contained"
                             color="primary"
                             fullWidth
                             className="mt-4 h-12 bg-blue-600 hover:bg-blue-700"
-
                         >
                             <span className="text-lg">Register</span>
                         </Button>

@@ -20,7 +20,6 @@ it's an advanced matrimonial platform designed to bring people together and help
    
 3. **Privacy Controls**: Users have full control over their profiles, including the ability to hide personal information and control who can view their details.
    
-4. **Biodata Statistics**: Detailed statistics for admin to monitor the number of male, female, and premium users, as well as the total biodata count.
    
 6. **Revenue Tracking**: Admin can track total revenue generated from biodata contact request payments directly from the dashboard.
    
@@ -30,7 +29,7 @@ it's an advanced matrimonial platform designed to bring people together and help
    
 9. **Payment System**: Users can make payments for contact requests, ensuring a secure and efficient transaction process.
 
-10. **Premium Features**: Access exclusive features and benefits by upgrading to a premium membership, including highlighted profiles and priority support.
+
 
 ## How to Use
 

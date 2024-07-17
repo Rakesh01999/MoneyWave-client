@@ -1,6 +1,7 @@
 import { Card, CardContent, Typography } from "@mui/material";
 import useAuth from "../../../hooks/useAuth";
-import logo from '../../../../src/assets/mm.png'
+// import logo from '../../../../src/assets/mm.png'
+import logo from '../../../../src/assets/MoneyWave.png'
 
 const UserHome = () => {
     const { user } = useAuth();
