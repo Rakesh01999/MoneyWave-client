@@ -9,7 +9,7 @@
 
 ## Overview
 
-it's an advanced financial service platform designed to help people to their money transaction system and help them for their management . Our goal is to create a secure and user-friendly environment where individuals can explore potential matches and build meaningful relationships leading to happy and successful payment , transaction .
+it's an advanced financial service platform designed to help people to their money transaction system and help them for their management . Our goal is to create a secure and user-friendly environment where individuals can explore financial process and make meaningful send money, cash in , cash out - leading to  successful payment , transaction .
 
 ## Features
 
