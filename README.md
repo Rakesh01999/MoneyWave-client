@@ -39,9 +39,8 @@ it's an advanced financial service platform designed to help people to their mon
 4. **Contact Matches**: Send and receive messages securely within the platform.
 5. **Admin Dashboard**: Admin can log in using the provided credentials to monitor site activities, manage users, and track revenue.
 
-## Contact
+## Contact/Email
 
-For any support or inquiries, please contact at
-rbiswas01999@gmail.com.
+For any support or inquiries, please contact at rbiswas01999@gmail.com.
 
 Hope you enjoy the best financial service with Money Wave !
