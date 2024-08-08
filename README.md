@@ -41,6 +41,7 @@ it's an advanced financial service platform designed to help people to their mon
 
 ## Contact
 
-For any support or inquiries, please contact at rbiswas01999@gmail.com.
+For any support or inquiries, please contact at
+rbiswas01999@gmail.com.
 
 Hope you enjoy the best financial service with Money Wave !
