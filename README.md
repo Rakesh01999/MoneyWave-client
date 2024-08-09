@@ -2,7 +2,6 @@
 
 **Live Site:** [Money Wave]
 
-
 ## Admin Credentials
 
 - **Email:** akashdev@gmail.com
